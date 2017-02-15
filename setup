@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# This bash script sets up the required TextAdept Lua code for 
+# use writing the "A TeXer's Progress" documents.
+
+echo "This will OVERWRITE any existing"
+echo "  TextAdept LaTeX and ConTeXt modules"
+echo "  as well as edits your textadept initialization file"
+echo ""
+echo "ARE YOU SURE YOU WANT TO DO THIS?"
+echo ""
+echo "Type Ctrl-C to STOP the setup or Return to PROCEED"
+read
+
+# copy over the LaTeX and ConTeXt modules
+#
+moduleDir=$HOME/.textadept/modules
+mkdir -p $moduleDir
+cp -R latex   $moduleDir
+cp -R context $moduleDir
+cp -R common  $moduleDir
+
+# use textadept to edit the user's initialization file
+#
+echo "We are using TextAdept to edit your .textadept/init.lua file."
+echo "A TextAdept window will flash and then disappear"
+echo "... this is expected behaviour."
+textadept --force --nosession --userhome $PWD/setupDir $HOME/.textadept/init.lua

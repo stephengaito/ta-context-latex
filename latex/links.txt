@@ -1,0 +1,16 @@
+# This is a simple collection of useful links for use while working with LaTeX 
+#
+# It is formated as a sequence of blocks separated by blank lines.
+# The first line of each block is the link name.
+# The second line is the link URL.
+# All subsequent lines before the next blank line form the link description
+# Lines starting with a # are ignored
+
+LaTeX
+http:something
+This is a description
+This is some more description
+
+LaTeX2
+http:somethingElse
+This is some more description
