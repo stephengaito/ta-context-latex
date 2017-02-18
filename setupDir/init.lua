@@ -35,6 +35,18 @@ function updateInitLua()
     "-- 'ConTeXt' are interpreted as ConTeXt files.\n\n")
   initBuffer:add_text(
     "textadept.file_types.patterns['[Cc][Oo][Nn][Tt][Ee][Xx][Tt]'] = 'context'\n\n")
+  initBuffer:add_text(
+    "-- Ensure *.tex files whose first lines contain the word\n")
+  initBuffer:add_text(
+    "-- 'LuaTeX'. are interpreted as LuaTeX files.\n\n")
+  initBuffer:add_text(
+    "textadept.file_types.patterns['[Ll][Uu][Aa][Tt][Ee][Xx]'] = 'luatex'\n\n")
+  initBuffer:add_text(
+    "-- Ensure *.tex files whose first lines contain the word\n")
+  initBuffer:add_text(
+    "-- 'LaTeX' are interpreted as LaTeX files.\n\n")
+  initBuffer:add_text(
+    "textadept.file_types.patterns['[Ll][Aa][Tt][Ee][Xx]'] = 'latex'\n\n")
   initBuffer.add_text("keys['c]'] = require('common/reWrapParagraph').reWrapParagraph -- Ctrl-]\n")
   initBuffer.add_text("keys['al'] = require('common/gotoLinks').goto_link             -- Alt-l\n\n")
   io.save_file()

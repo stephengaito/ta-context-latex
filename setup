@@ -14,11 +14,15 @@ read
 
 # copy over the LaTeX and ConTeXt modules
 #
-moduleDir=$HOME/.textadept/modules
+textadeptDir=$HOME/.textadept
+lexersDir=$textadeptDir/lexers
+moduleDir=$textadeptDir/modules
 mkdir -p $moduleDir
-cp -R latex   $moduleDir
-cp -R context $moduleDir
-cp -R common  $moduleDir
+cp -R lexers/*  $lexersDir
+cp -R latex     $moduleDir
+cp -R luatex    $moduleDir
+cp -R context   $moduleDir
+cp -R common    $moduleDir
 
 # use textadept to edit the user's initialization file
 #
