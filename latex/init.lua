@@ -10,9 +10,6 @@ local function initLaTeX(lexerName)
     --keys.latex[not OSX and (GUI and 'cR' or 'cmr') or 'mR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
     keys.latex['cR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
 
-    -- remove the default mapping from *.tex to pdflatex
-    textadept.run.compile_commands.tex = nil
-
     -- add the mapping from the latex lexer to pdflatex
     textadept.run.compile_commands['latex'] = 'pdflatex %f'
 

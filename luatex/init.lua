@@ -12,14 +12,9 @@ local function initLuaTeX(lexerName)
     --keys.luatex[not OSX and (GUI and 'cR' or 'cmr') or 'mR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
     keys.luatex['cR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
     
-    -- remove the default mapping from *.tex to pdflatex
-    textadept.run.compile_commands.tex = nil
-
-    -- add the mapping from the context lexer to context
+        -- add the mapping from the context lexer to context
     textadept.run.compile_commands['luatex'] = 'luatex %f'
-
-
-    
+   
     -- add some luatex snippets
     snippets['luatex'] = snippets['luatex'] or {}
     snippets.luatex['start']   = 'start%1\n%0\n\\stop%1'

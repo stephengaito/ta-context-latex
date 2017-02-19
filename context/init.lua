@@ -12,13 +12,8 @@ local function initConTeXt(lexerName)
     --keys.context[not OSX and (GUI and 'cR' or 'cmr') or 'mR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
     keys.context['cR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
     
-    -- remove the default mapping from *.tex to pdflatex
-    textadept.run.compile_commands.tex = nil
-
     -- add the mapping from the context lexer to context
     textadept.run.compile_commands['context'] = 'context %f'
-
-
     
     -- add some latex snippets
     snippets['context'] = snippets['context'] or {}
