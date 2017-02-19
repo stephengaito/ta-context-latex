@@ -21,3 +21,7 @@ http://wiki.contextgarden.net/Math
 
 LuaTeX
 http://www.luatex.org/documentation.html
+
+Kpathsea Manual
+http://tug.org/texinfohtml/kpathsea.html
+

@@ -7,10 +7,11 @@
 # Lines starting with a # are ignored
 
 LaTeX
-http:something
-This is a description
-This is some more description
+https://www.latex-project.org/
 
-LaTeX2
-http:somethingElse
-This is some more description
+LaTeX Documentation
+https://www.latex-project.org/help/documentation/
+
+Kpathsea Manual
+http://tug.org/texinfohtml/kpathsea.html
+
