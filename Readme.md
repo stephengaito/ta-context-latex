@@ -76,9 +76,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
 SOFTWARE. 
 
+## CTags lua code
+
+The context/ctags.lua, latex/ctags.lua and luatex/ctags.lua files have been 
+modified from from Robert Gieseke's version of the ctags.lua file 
+(commit c2410af) in the [Textredux](http://rgieseke.github.io/textredux/) 
+distribution on 2017/02/06. These files are Copyright by Nils Nordman, Robert 
+Gieseke and Stephen Gaito, and are released under MIT licenses. See the top 
+of each file for details. 
+
 ## XML lua code 
 
-The xml/init.lua and xml/xml.lua code have been taken from Brian Schott's 
+The xml/init.lua and xml/xml.lua files have been taken from Brian Schott's 
 [ta-xml](https://bitbucket.org/SirAlaran/ta-xml/src)/init.lua and 
 [ta-common](https://bitbucket.org/SirAlaran/ta-common/src)/xml.lua projects 
 respectively. Except for minor modifications, both are Copyright Brian Schott 
