@@ -30,31 +30,58 @@ platform, the setup script is a bash script which has only been tested
 on Ubuntu. Users who do not have access to the bash scripting language 
 will need to make the required changes by hand.
 
+# Installation
+
+On a unix machine you can use the following command to install all of the 
+modules:
+
+> ./setup all
+
+To install only the ConTeXt, LaTeX or XML modules type:
+
+> ./setup context
+
+or
+
+> ./setup latex
+
+or
+
+> ./setup xml
+
 # License
 
-The Lua code in this directory is released under the following 
-[MIT License](https://opensource.org/licenses/MIT):
+## Main lua code
+
+Unless specified otherwise the Lua code in this directory is released under 
+the following [MIT License](https://opensource.org/licenses/MIT): 
 
 Copyright 2017 Stephen Gaito
 
-Permission is hereby granted, free of charge, to any person 
-obtaining a copy of this software and associated documentation 
-files (the "Software"), to deal in the Software without 
-restriction, including without limitation the rights to use, 
-copy, modify, merge, publish, distribute, sublicense, and/or 
-sell copies of the Software, and to permit persons to whom the 
-Software is furnished to do so, subject to the following 
-conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy 
+of this software and associated documentation files (the "Software"), to deal 
+in the Software without restriction, including without limitation the rights 
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+copies of the Software, and to permit persons to whom the Software is 
+furnished to do so, subject to the following conditions: 
 
-The above copyright notice and this permission notice shall be 
-included in all copies or substantial portions of the 
-Software.
+The above copyright notice and this permission notice shall be included in 
+all copies or substantial portions of the Software. 
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY 
-KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
-WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
-PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
-OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+SOFTWARE. 
+
+## XML lua code 
+
+The xml/init.lua and xml/xml.lua code have been taken from Brian Schott's 
+[ta-xml](https://bitbucket.org/SirAlaran/ta-xml/src)/init.lua and 
+[ta-common](https://bitbucket.org/SirAlaran/ta-common/src)/xml.lua projects 
+respectively. Except for minor modifications, both are Copyright Brian Schott 
+and are released under MIT licenses. Please see the top of each file for 
+details. 
+
