@@ -1,32 +1,165 @@
-#!/bin/bash
+#!/usr/bin/env texlua
 
-# This bash script sets up the required TextAdept Lua code for 
-# use writing the "A TeXer's Progress" documents.
+-- This lua script sets up the required TextAdept ConTeX/LaTeX modules
 
-echo "This will OVERWRITE any existing"
-echo "  TextAdept LaTeX and ConTeXt modules"
-echo "  as well as edits your textadept initialization file"
-echo ""
-echo "ARE YOU SURE YOU WANT TO DO THIS?"
-echo ""
-echo "Type Ctrl-C to STOP the setup or Return to PROCEED"
-read
+local fmt = string.format
 
-# copy over the LaTeX and ConTeXt modules
-#
-textadeptDir=$HOME/.textadept
-lexersDir=$textadeptDir/lexers
-moduleDir=$textadeptDir/modules
-mkdir -p $moduleDir
-cp -R lexers/*  $lexersDir
-cp -R latex     $moduleDir
-cp -R luatex    $moduleDir
-cp -R context   $moduleDir
-cp -R common    $moduleDir
+if (#arg < 1) then
+  print("setup usage:")
+  print("  './setup all'     sets up all of context, latex and xml")
+  print("  './setup context' sets up only the context module")
+  print("  './setup latex'   sets up only the latex module")
+  print("  './setup xml'     sets up only the xml module")
+  os.exit(-1)
+end
 
-# use textadept to edit the user's initialization file
-#
-echo "We are using TextAdept to edit your .textadept/init.lua file."
-echo "A TextAdept window will flash and then disappear"
-echo "... this is expected behaviour."
-textadept --force --nosession --userhome $PWD/setupDir $HOME/.textadept/init.lua
+local homeDir = os.getenv('HOME')
+if (homeDir == nil) then
+  print("could not determine the user's home directory")
+  os.exit(-1)
+end
+local textadeptDir = homeDir..'/.textadept'
+local lexersDir    = textadeptDir..'/lexers'
+local modulesDir   = textadeptDir..'/modules'
+local contextDir   = modulesDir..'/context'
+local luatexDir    = modulesDir..'/luatex'
+local latexDir     = modulesDir..'/latex'
+local commonDir    = modulesDir..'/common'
+
+print(fmt("Using the personal Textadept directory [%s]", textadeptDir))
+
+os.execute(fmt("mkdir -p %s", textadeptDir))
+os.execute(fmt("mkdir -p %s", lexersDir))
+os.execute(fmt("mkdir -p %s", modulesDir))
+
+local headerLines = {
+  [1] = "-- The following sections (between corresponding",
+  [2] = "-- start-ta-context-latex and end-ta-context-latex markers)",
+  [3] = "-- have been added by the ta-contex-latex setup script.",
+  [4] = "-- Any changes you make in these sections will be removed",
+  [5] = "-- the next time you run the ta-contex-latex setup script."
+}
+
+local initAdditions = {}
+
+function installCommon()
+  os.execute(fmt("cp -R common %s", modulesDir))
+  initAdditions['common'] = {
+    [1] = "-- remove the default mapping from *.tex to pdflatex",
+    [2] = "textadept.run.compile_commands.tex = nil",
+    [3] = "",
+    [4] = "-- add useful common key codes",
+    [5] = "keys['c]'] = require('common/reWrapParagraph').reWrapParagraph -- Ctrl-]",
+    [6] = "keys['al'] = require('common/gotoLinks').goto_link             -- Alt-l"
+  }
+end
+
+function installConTeXt()
+  os.execute(fmt("cp -R context %s", modulesDir))
+  initAdditions['context'] = {
+    [1] = "-- Ensure *.tex files whose first lines contain the word",
+    [2] = "-- 'ConTeXt' are interpreted as ConTeXt files.",
+    [3] = "textadept.file_types.patterns['[Cc][Oo][Nn][Tt][Ee][Xx][Tt]'] = 'context'"
+  }
+end
+
+function installLuaTeX()
+  os.execute(fmt("cp lexers/luatex.lua %s", lexersDir))
+  os.execute(fmt("cp -R luatex %s", modulesDir))
+  initAdditions['luatex'] = {
+    [1] = "-- Ensure *.tex files whose first lines contain the word",
+    [2] = "-- 'LuaTeX'. are interpreted as LuaTeX files.",
+    [3] = "textadept.file_types.patterns['[Ll][Uu][Aa][Tt][Ee][Xx]'] = 'luatex'"
+  }
+end
+
+function installLaTeX()
+  os.execute(fmt("cp -R latex %s", modulesDir))
+  initAdditions['latex'] = {
+    [1] = "-- Ensure *.tex files whose first lines contain the word",
+    [2] = "-- 'LaTeX' are interpreted as LaTeX files.",
+    [3] = "textadept.file_types.patterns['[Ll][Aa][Tt][Ee][Xx]'] = 'latex'"
+  }
+end
+
+function installXml()
+  os.execute(fmt("cp -R xml %s", modulesDir))
+end
+
+function writeSection(newInitFile, sectionName, sectionValues)
+  newInitFile:write(fmt("-- start-ta-context-latex =%s=\n\n", sectionName))
+  for i, aNewLine in ipairs(sectionValues) do
+    newInitFile:write(fmt("  %s\n", aNewLine))
+  end
+  newInitFile:write(fmt("\n-- end-ta-context-latex =%s=\n", sectionName))
+end
+
+local prefix = string.sub(arg[1], 1, 1)
+if (prefix == 'a') then
+  installCommon()
+  installConTeXt()
+  installLuaTeX()
+  installLaTeX()
+  installXml()
+elseif (prefix == 'c') then
+  installCommon()
+  installConTeXt()
+  installLuaTeX()
+elseif (prefix == 'l') then
+  installCommon()
+  installLaTeX()
+elseif (prefix == 'x') then
+  installCommon()
+  installXml()
+else
+  print(fmt("unknown command found [%s] ... doing nothing", arg[1]))
+end
+
+local foundASection  = false
+local insideASection = false
+local newInitFile = io.open(textadeptDir..'/init.lua.new', 'w')
+for aLine in io.lines(textadeptDir..'/init.lua') do
+  if (string.match(aLine, 'start%-ta%-context%-latex')) then
+    if (string.match(aLine, 'end%-ta%-context%-latex')) then
+      newInitFile:write(aLine, "\n")
+    else
+      -- print(aLine)
+      local keyToDelete = nil
+      for key, value in pairs(initAdditions) do
+        -- print("looking for ", '='..key..'=')
+        if (string.match(aLine, '='..key..'=')) then
+          foundASection  = true
+          insideASection = true
+          -- print("FOUND ", key)
+          keyToDelete = key
+          writeSection(newInitFile, key, value)
+        end
+      end
+    end
+    if (keyToDelte ~= nil) then
+      initAdditions[keyToDelete] = nil
+    end
+  elseif (string.match(aLine, 'end%-ta%-context%-latex')) then
+    insideASection = false
+  elseif (insideASection) then
+    -- do nothing
+  else
+    newInitFile:write(aLine, "\n")
+  end
+end
+
+if (not foundASection) then
+  newInitFile:write("\n\n")
+  for i, aNewLine in ipairs(headerLines) do
+    newInitFile:write(aNewLine, "\n")
+  end
+  newInitFile:write("\n")
+  for key, value in pairs(initAdditions) do
+    writeSection(newInitFile, key, value)
+    newInitFile:write("\n")
+  end
+end
+
+if newInitFile:close() then
+  os.execute(fmt("mv %s/init.lua.new %s/init.lua", textadeptDir, textadeptDir))
+end
