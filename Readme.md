@@ -85,12 +85,3 @@ distribution on 2017/02/06. These files are Copyright by Nils Nordman, Robert
 Gieseke and Stephen Gaito, and are released under MIT licenses. See the top 
 of each file for details. 
 
-## XML lua code 
-
-The xml/init.lua and xml/xml.lua files have been taken from Brian Schott's 
-[ta-xml](https://bitbucket.org/SirAlaran/ta-xml/src)/init.lua and 
-[ta-common](https://bitbucket.org/SirAlaran/ta-common/src)/xml.lua projects 
-respectively. Except for minor modifications, both are Copyright Brian Schott 
-and are released under MIT licenses. Please see the top of each file for 
-details. 
-
