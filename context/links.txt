@@ -27,3 +27,12 @@ http://tug.org/texinfohtml/kpathsea.html
 
 MtxRun Wiki Page
 http://wiki.contextgarden.net/Mtxrun
+
+ConTeXt Source Browser
+http://source.contextgarden.net
+
+Searchable ConTeXt Source
+http://repo.or.cz/context.git
+
+ConTeXt System Macros
+http://wiki.contextgarden.net/System_Macros
