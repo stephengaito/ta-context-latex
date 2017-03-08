@@ -57,9 +57,19 @@ end
 function installConTeXt()
   os.execute(fmt("cp -R context %s", modulesDir))
   initAdditions['context'] = {
-    [1] = "-- Ensure *.tex files whose first lines contain the word",
-    [2] = "-- 'ConTeXt' are interpreted as ConTeXt files.",
-    [3] = "textadept.file_types.patterns['[Cc][Oo][Nn][Tt][Ee][Xx][Tt]'] = 'context'"
+    [1] = "-- Ensure *.tex files whose first lines contain the words",
+    [2] = "-- 'ConTeXt document' are interpreted as ConTeXt files.",
+    [3] = "textadept.file_types.patterns['[Cc][Oo][Nn][Tt][Ee][Xx][Tt]%s+[Dd][Oo][Cc][Uu][Mm][Ee][Nn][Tt]'] = 'context'"
+  }
+end
+
+function installConTeXtMkIV()
+  os.execute(fmt("cp lexers/contextMkIV.lua %s", lexersDir))
+  os.execute(fmt("cp -R contextMkIV %s", modulesDir))
+  initAdditions['contextMkIV'] = {
+    [1] = "-- Ensure *.tex files whose first lines contain the words",
+    [2] = "-- 'ConTeXt MkIV Module' are interpreted as ConTeXtModule files.",
+    [3] = "textadept.file_types.patterns['[Cc][Oo][Nn][Tt][Ee][Xx][Tt]%s+[Mm][Kk][Ii][Vv]%s+[Mm][Oo][Dd][Uu][Ll][Ee]'] = 'contextMkIV'"
   }
 end
 
@@ -98,12 +108,14 @@ local prefix = string.sub(arg[1], 1, 1)
 if (prefix == 'a') then
   installCommon()
   installConTeXt()
+  installConTeXtMkIV()
   installLuaTeX()
   installLaTeX()
   installXml()
 elseif (prefix == 'c') then
   installCommon()
   installConTeXt()
+  installConTeXtMkIV()
   installLuaTeX()
 elseif (prefix == 'l') then
   installCommon()
