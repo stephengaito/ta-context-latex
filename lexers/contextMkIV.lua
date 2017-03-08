@@ -12,7 +12,7 @@ local M = {_NAME = 'contextMkIV'}
 local ws = token(l.WHITESPACE, l.space^1)
 
 -- Comments.
-local comment = token(l.COMMENT, '%' * l.nonnewline^0)
+local comment = token(l.COMMENT, (P'%' - P'%D') * l.nonnewline^0)
 
 -- Commands.
 local command = token(l.KEYWORD, '\\' * (l.alpha^1 + S('#$&~_^%{}')))
