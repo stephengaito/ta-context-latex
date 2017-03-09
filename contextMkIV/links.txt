@@ -10,23 +10,20 @@
 ConTeXt
 http://wiki.contextgarden.net/Main_Page
 
-LaTeX->ConTeXt
-http://wiki.contextgarden.net/From_LaTeX_to_ConTeXt
-
-ConTeXt Modules
+Modules
 http://wiki.contextgarden.net/Modules
 
-Mathematics in ConTeXt
-http://wiki.contextgarden.net/Math
+Module Namespaces
+http://wiki.contextgarden.net/Module_Namespaces
+
+System Macros
+http://wiki.contextgarden.net/System_Macros
+
+Module Parameters
+http://wiki.contextgarden.net/Module_Parameters
 
 LuaTeX
 http://www.luatex.org/documentation.html
-
-Kpathsea Manual
-http://tug.org/texinfohtml/kpathsea.html
-
-MtxRun Wiki Page
-http://wiki.contextgarden.net/Mtxrun
 
 ConTeXt Source Browser
 http://source.contextgarden.net
@@ -34,5 +31,5 @@ http://source.contextgarden.net
 Searchable ConTeXt Source
 http://repo.or.cz/context.git
 
-ConTeXt System Macros
-http://wiki.contextgarden.net/System_Macros
+Module Templage
+http://wiki.contextgarden.net/Module_template
