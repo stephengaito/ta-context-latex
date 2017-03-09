@@ -16,6 +16,9 @@ http://wiki.contextgarden.net/Modules
 Module Namespaces
 http://wiki.contextgarden.net/Module_Namespaces
 
+Inside ConTeXt
+http://wiki.contextgarden.net/Inside_ConTeXt
+
 System Macros
 http://wiki.contextgarden.net/System_Macros
 
