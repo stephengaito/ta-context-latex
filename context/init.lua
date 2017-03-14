@@ -2,6 +2,24 @@
 
 local M = { }
 
+local function buildConTeXt()
+  local origBuffer = buffer
+  local firstLine = buffer:get_line(0)
+  ui.print(firstLine)
+  local masterFile = firstLine:lower():match('%[%s*master%s+document%s*%:%s*(%S+)%s*%]')
+  if masterFile then
+    ui.print('running ConTeXt on: ['..masterFile..']\n')
+    textadept.run.compile(masterFile)
+  else
+    ui.print("NO MASTER FILE FOUND\n")
+    if origBuffer.filename then
+      ui.print(origBuffer.filename)
+    else
+      ui.print("NO BUFFER FILENAME FOUND\n")
+    end
+  end
+end
+
 local function initConTeXt(lexerName)
   if lexerName == 'context' then
     -- Initialization for the ConTeXt module
@@ -11,10 +29,11 @@ local function initConTeXt(lexerName)
     -- keys.context.cg = require('context/ctags').goto_symbol    -- Ctrl-g
     --keys.context[not OSX and (GUI and 'cR' or 'cmr') or 'mR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
     keys.context['cR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
+    keys.context['cB'] = buildConTeXt
     
     -- add the mapping from the context lexer to context
     textadept.run.compile_commands['context'] = 'context %f'
-    
+
     -- add some latex snippets
     snippets['context'] = snippets['context'] or {}
     snippets.context['start']   = 'start%1\n%0\n\\stop%1'
