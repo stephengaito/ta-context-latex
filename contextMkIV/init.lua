@@ -9,8 +9,8 @@ local function initContextMkIV(lexerName)
     -- add in ContextMkIV specific key codes
     keys['contextMkIV'] = keys.context or {}
     -- keys.context.cg = require('context/ctags').goto_symbol    -- Ctrl-g
-    --keys.context[not OSX and (GUI and 'cR' or 'cmr') or 'mR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
-    keys.contextMkIV['cR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
+    --keys.context[not OSX and (GUI and 'cR' or 'cmr') or 'mR'] = require('common/messageBuffer').clearRunCompile
+    keys.contextMkIV['cR'] = require('common/messageBuffer').clearRunCompile
     
     -- add the mapping from the contextMkIV lexer to context
     textadept.run.compile_commands['contextMkIV'] = 'mtxrun --script modules --process %f'

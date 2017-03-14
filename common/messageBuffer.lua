@@ -2,7 +2,7 @@
 
 local M = {}
 
-function M.findMessageBuffer()
+function M.find()
   local buffer_type = _L['[Message Buffer]']
   local message_buffer
   for i = 1, #_BUFFERS do
@@ -14,18 +14,21 @@ function M.findMessageBuffer()
   return message_buffer
 end
 
-function M.clearMessageBuffer()
-  local message_buffer = M.findMessageBuffer()
+function M.clear()
+  local message_buffer = M.find()
   if message_buffer then message_buffer:set_text("") end
 end
 
-function M.printMessageBuffer(message)
-  local message_buffer = M.findMessageBuffer()
-  if message_buffer then message_buffer:append_text(message) end
+function M.print(message)
+  local message_buffer = M.find()
+  if message_buffer then
+    message_buffer:append_text(message)
+    message_buffer.modify(false)
+  end
 end
 
-function M.clearMessageBufferRunCompile()
-  M.clearMessageBuffer()
+function M.clearRunCompile()
+  M.clear()
   textadept.run.compile()
 end
 

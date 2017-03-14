@@ -7,8 +7,8 @@ local function initLaTeX(lexerName)
     -- add in latex specific key codes
     keys['latex'] = keys.latex or {}
     keys.latex.cg = require('latex/ctags').goto_symbol    -- Ctrl-g
-    --keys.latex[not OSX and (GUI and 'cR' or 'cmr') or 'mR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
-    keys.latex['cR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
+    --keys.latex[not OSX and (GUI and 'cR' or 'cmr') or 'mR'] = require('common/messageBuffer').clearRunCompile
+    keys.latex['cR'] = require('common/messageBuffer').clearRunCompile
 
     -- add the mapping from the latex lexer to pdflatex
     textadept.run.compile_commands['latex'] = 'pdflatex %f'

@@ -3,22 +3,30 @@
 local M = { }
 
 local function buildConTeXt()
+  --
+  -- save buffer 
+  --
   io.save_file()
   local origBuffer = buffer
-  local firstLine = buffer:get_line(0)
-  ui.print(firstLine)
-  local masterFile = firstLine:lower():match('%[%s*master%s+document%s*%:%s*(%S+)%s*%]')
+  local origFileName = buffer.filename
+  local masterFileName = origFileName
+  --
+  -- open the master file (if any)
+  --
+  local firstLine = origBuffer:get_line(0)
+  local masterFile = firstLine:match('%[%s*[Mm][Aa][Ss][Tt][Ee][Rr]%s+[Dd][Oo][Cc][Uu][Mm][Ee][Nn][Tt]%s*%:%s*(%S+)%s*%]')
   if masterFile then
-    ui.print('running ConTeXt on: ['..masterFile..']\n')
-    textadept.run.compile(masterFile)
-  else
-    ui.print("NO MASTER FILE FOUND\n")
-    if origBuffer.filename then
-      ui.print(origBuffer.filename)
-    else
-      ui.print("NO BUFFER FILENAME FOUND\n")
+    local absDir = lfs.currentdir()
+    if origFileName then
+      absDir = origFileName:gsub('%/[^%/]+$', '')
     end
+    masterFileName = lfs.abspath(masterFile, absDir)
+    ui.goto_file(masterFileName)
   end
+  --
+  -- compile it
+  --
+  require('common/messageBuffer').clearRunCompile()
 end
 
 local function initConTeXt(lexerName)
@@ -28,8 +36,8 @@ local function initConTeXt(lexerName)
     -- add in latex specific key codes
     keys['context'] = keys.context or {}
     -- keys.context.cg = require('context/ctags').goto_symbol    -- Ctrl-g
-    --keys.context[not OSX and (GUI and 'cR' or 'cmr') or 'mR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
-    keys.context['cR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
+    --keys.context[not OSX and (GUI and 'cR' or 'cmr') or 'mR'] = require('common/messageBuffer').clearRunCompile
+    keys.context['cR'] = require('common/messageBuffer').clearRunCompile
     keys.context['cB'] = buildConTeXt
     
     -- add the mapping from the context lexer to context

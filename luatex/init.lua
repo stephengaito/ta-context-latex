@@ -9,8 +9,8 @@ local function initLuaTeX(lexerName)
     -- add in luatex specific key codes
     keys['luatex'] = keys.context or {}
     -- keys.luatex.cg = require('context/ctags').goto_symbol    -- Ctrl-g
-    --keys.luatex[not OSX and (GUI and 'cR' or 'cmr') or 'mR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
-    keys.luatex['cR'] = require('common/clearMBuffer').clearMessageBufferRunCompile
+    --keys.luatex[not OSX and (GUI and 'cR' or 'cmr') or 'mR'] = require('common/messageBuffer').clearRunCompile
+    keys.luatex['cR'] = require('common/messageBuffer').clearRunCompile
     
         -- add the mapping from the context lexer to context
     textadept.run.compile_commands['luatex'] = 'luatex %f'
