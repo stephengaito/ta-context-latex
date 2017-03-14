@@ -3,6 +3,7 @@
 local M = { }
 
 local function buildConTeXt()
+  io.save_file()
   local origBuffer = buffer
   local firstLine = buffer:get_line(0)
   ui.print(firstLine)
