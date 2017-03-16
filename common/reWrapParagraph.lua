@@ -71,7 +71,7 @@ local function removeCommentIndicators(someLines)
   local commentIndicators = {}
   local bufferLexer = buffer.get_lexer(buffer, false)
   local commentChar = textadept.editing.comment_string[bufferLexer] or ''
-  if not commentChar:find('|') then
+  if commentChar ~= '' and not commentChar:find('|') then
     local commentCharPattern = commentChar:gsub('%%', '%%%%')
     local commentPattern = string.format("^(%s[^%s]*)", commentCharPattern, "%s")
     for i, aLine in ipairs(someLines) do
@@ -82,7 +82,7 @@ local function removeCommentIndicators(someLines)
       appendValue(uncommentedText, newLine)
     end
   else
-    uncommentedText = origText
+    uncommentedText = someLines
   end
   local commentIndicator = commentIndicators[1] or ''
   return commentIndicator, uncommentedText
