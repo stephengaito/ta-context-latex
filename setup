@@ -83,6 +83,17 @@ function installLuaTeX()
   }
 end
 
+function installLua()
+  --os.execute(fmt("cp lexers/luatex.lua %s", lexersDir))
+  --os.execute(fmt("cp -R luatex %s", modulesDir))
+  initAdditions['lua'] = {
+    [1] = "-- Ensure files whose first lines contain the word",
+    [2] = "-- ' Lua ' or 'TeXLua'. are interpreted as Lua files.",
+    [3] = "textadept.file_types.patterns['[ \\t][Ll][Uu][Aa][ \\t]'] = 'lua'",
+    [4] = "textadept.file_types.patterns['[Tt][Ee][Xx][Ll][Uu][Aa]'] = 'lua'"
+  }
+end
+
 function installLaTeX()
   os.execute(fmt("cp -R latex %s", modulesDir))
   initAdditions['latex'] = {
@@ -112,11 +123,13 @@ if (prefix == 'a') then
   installLuaTeX()
   installLaTeX()
   installXml()
+  installLua()
 elseif (prefix == 'c') then
   installCommon()
   installConTeXt()
   installConTeXtMkIV()
   installLuaTeX()
+  installLua()
 elseif (prefix == 'l') then
   installCommon()
   installLaTeX()
